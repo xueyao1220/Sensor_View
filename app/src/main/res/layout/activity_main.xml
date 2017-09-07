@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id ="@+id/bg"
+    tools:context="com.example.yxue.myapplication.MainActivity"
+    android:orientation ="horizontal">
+
+    <LinearLayout
+        android:id="@+id/Graph"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation ="horizontal"
+        android:layout_weight="15">
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation ="horizontal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="85"
+        android:orientation ="vertical">
+
+    <TextView
+        android:id="@+id/tvBluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth"
+        android:textSize="15dp"
+        android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/bConnect"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Connect"
+            android:textSize="10dp"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/bDisconnect"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Disconnect"
+            android:textSize="10dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tvControl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Control"
+            android:textSize="15dp"
+            android:textColor="@color/white"/>
+
+        <ToggleButton
+            android:id="@+id/tbStream"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:textOn="Start Stream"
+            android:textOff="Stop Stream"
+            android:textColor="@color/white"/>
+
+        <ToggleButton
+            android:id="@+id/tbScroll"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:checked="true"
+            android:textOn="Auto Scroll X"
+            android:textOff="Auto Scroll X"
+            android:textColor="@color/white"/>
+
+        <ToggleButton
+            android:id="@+id/tbLock"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:checked="true"
+            android:textOn="Lock Xaxis"
+            android:textOff="Lock Xaxis"
+            android:textColor="@color/white"/>
+        
+        <LinearLayout
+            android:id="@+id/LLX"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_weight="50" >
+
+           <Button
+               android:id="@+id/bXminus"
+               android:layout_width="match_parent"
+               android:layout_height="30dp"
+               android:text="-"
+               android:textSize="12dp"
+               android:textColor="@color/white"
+               android:layout_weight="50"/>
+            <Button
+                android:id="@+id/bXplus"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="+"
+                android:textSize="12dp"
+                android:layout_weight="50"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
