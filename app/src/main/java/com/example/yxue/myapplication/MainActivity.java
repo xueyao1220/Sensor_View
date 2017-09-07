@@ -26,6 +26,22 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
+    @Override
+    public void onBackPressed(){
+        if(Bluetooth_1.connectedThread != null) Bluetooth_1.connectedThread.write("Q");
+        super.onBackPressed();
+    }
+
+    static boolean Lock, AutoScrollX, Stream;
+    //graph init
+    static LinearLayout GraphView1;
+    static GraphView line_graph;
+    //graph value
+    private static double graph2LastXValue =0;
+    private static int Xview =10;
+    Button bConnect,bDisconnet,bXminus, bXplus;
+    ToggleButton tbLock, tbScroll, tbStream;
+    private LineGraphSeries<DataPoint> line_series;
     Handler mHandler = new Handler(){
 
         @Override
@@ -42,7 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     byte[] readBuf = (byte[]) msg.obj;
                     String strIncom = new String (readBuf,0,5);
                     if (strIncom.indexOf('s')==0 && strIncom.indexOf('.')==2){
-                    strIncom = strIncom.replace("s","");
+                        strIncom = strIncom.replace("s","");
                         if(isFloatNumber(strIncom)){
                             line_series.appendData(new DataPoint(graph2LastXValue,Double.parseDouble(strIncom)),true,40);
 
@@ -51,10 +67,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 graph2LastXValue =0;
                             }else graph2LastXValue +=0.1;
 
+                            //refresh
+                            line_graph.removeSeries(line_series);
+                            line_graph.addSeries(line_series);
                         }
 
-                }
-                break;
+                    }
+                    break;
             }
         }
         public boolean isFloatNumber(String num){
@@ -67,19 +86,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     };
 
-
-    Button bConnect,bDisconnet,bXminus, bXplus;
-    ToggleButton tbLock, tbScroll, tbStream;
-    static boolean Lock, AutoScrollX, Stream;
-
-    //graph init
-    static LinearLayout GraphView1;
-    static GraphView line_graph;
-    private LineGraphSeries<DataPoint> line_series;
-
-
-    private static double graph2LastXValue =0;
-    private static int Xview =10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +102,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
     void init(){
 
+        Bluetooth_1.gethandler(mHandler);
         GraphView line_graph = (GraphView) findViewById(R.id.graph);
         line_series = new LineGraphSeries<DataPoint>();
 
-        line_graph.addSeries(line_series);
+
         line_series.setThickness(10);
         line_series.setColor(Color.YELLOW);
+
 
         line_graph.getViewport().setScalable(true);
         line_graph.getViewport().setScrollable(true);
@@ -109,6 +117,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         line_graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
         line_graph.getLegendRenderer().setVisible(true);
         line_graph.getViewport().setYAxisBoundsManual(true);
+        line_graph.addSeries(line_series);
 
     }
 
@@ -146,10 +155,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Bluetooth_1.disconnect();
                 break;
             case R.id.bXminus:
-
+                if(Xview>1) Xview--;
                 break;
             case R.id.bXplus:
-
+                if (Xview<30) Xview++;
                 break;
             case R.id.tbLock:
                 if(tbLock.isChecked()){
