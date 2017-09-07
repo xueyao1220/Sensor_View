@@ -51,7 +51,7 @@ public  class Bluetooth_1 extends Activity implements OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
         init();
@@ -140,7 +140,7 @@ public  class Bluetooth_1 extends Activity implements OnItemClickListener {
     }
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        // TODO Auto-generated method stub
+
         if (btAdapter.isDiscovering()){
             btAdapter.cancelDiscovery();
         }

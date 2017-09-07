@@ -103,21 +103,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
     void init(){
 
         Bluetooth_1.gethandler(mHandler);
-        GraphView line_graph = (GraphView) findViewById(R.id.graph);
-        line_series = new LineGraphSeries<DataPoint>();
+        GraphView1 = (LinearLayout) findViewById(R.id.Graph);
 
 
+        line_series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 0)});
+
+        line_series.setTitle("Signal");
         line_series.setThickness(10);
         line_series.setColor(Color.YELLOW);
 
 
+        line_graph = (GraphView) findViewById(R.id.graph_view);
+
         line_graph.getViewport().setScalable(true);
+        line_graph.setTitle("Graph");
+        line_graph.setTitleColor(Color.YELLOW);
+        line_graph.getViewport().setMaxY(5);
+        line_graph.getViewport().setBackgroundColor(Color.BLACK);
+        line_graph.getViewport().setMinY(0);
+        line_graph.getViewport().setMaxX(Xview);
+        line_graph.getViewport().setMinX(0);
         line_graph.getViewport().setScrollable(true);
         line_graph.getViewport().setScalableY(true);
         line_graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
+        line_graph.getViewport().setXAxisBoundsManual(false );
+        line_graph.getViewport().setYAxisBoundsManual(false);
         line_graph.getLegendRenderer().setVisible(true);
-        line_graph.getViewport().setYAxisBoundsManual(true);
         line_graph.addSeries(line_series);
+
 
     }
 
@@ -146,10 +160,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void onClick(View v){
-        //TODO Auto-generated method stub
+
         switch (v.getId()){
           case R.id.bConnect:
+
                 startActivity(new Intent("android.intent.action.BT1"));
+
                 break;
             case R.id.bDisconnect:
                 Bluetooth_1.disconnect();

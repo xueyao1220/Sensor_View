@@ -18,12 +18,10 @@
         android:layout_weight="15">
 
         <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            tools:background="@android:color/black" />
-
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/graph_view"
+        />
     </LinearLayout>
 
     <LinearLayout
