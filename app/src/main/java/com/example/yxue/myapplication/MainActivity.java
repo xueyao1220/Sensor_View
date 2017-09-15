@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onBackPressed(){
-        if(Bluetooth_1.connectedThread != null) Bluetooth_1.connectedThread.write("Q");
+        if(Bluetooth_2.connectedThread != null) Bluetooth_2.connectedThread.write("Q");
         super.onBackPressed();
     }
 
@@ -48,13 +48,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                case Bluetooth_1.SUCCESS_CONNECT:
-                    Bluetooth_1.connectedThread = new Bluetooth_1.ConnectedThread((BluetoothSocket)msg.obj);
+                case Bluetooth_2.SUCCESS_CONNECT:
+                    Bluetooth_2.connectedThread = new Bluetooth_2.ConnectedThread((BluetoothSocket)msg.obj);
                     Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_SHORT).show();
                     String s = "Successfully connected";
-                    Bluetooth_1.connectedThread.start();
+                    Bluetooth_2.connectedThread.start();
                     break;
-                case Bluetooth_1.MESSAGE_READ:
+                case Bluetooth_2.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     String strIncom = new String (readBuf,0,5);
                     if (strIncom.indexOf('s')==0 && strIncom.indexOf('.')==2){
@@ -102,7 +102,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
     void init(){
 
-        Bluetooth_1.gethandler(mHandler);
+        Bluetooth_2.gethandler(mHandler);
         GraphView1 = (LinearLayout) findViewById(R.id.Graph);
 
 
@@ -163,12 +163,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         switch (v.getId()){
           case R.id.bConnect:
-
-                startActivity(new Intent("android.intent.action.BT1"));
+              Intent intent = new Intent(MainActivity.this,Bluetooth_2.class);
+              startActivity(intent);
 
                 break;
             case R.id.bDisconnect:
-                Bluetooth_1.disconnect();
+                Bluetooth_2.disconnect();
                 break;
             case R.id.bXminus:
                 if(Xview>1) Xview--;
@@ -192,9 +192,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.tbStream:
                 if(tbStream.isChecked()){
-                    if(Bluetooth_1.connectedThread!=null) Bluetooth_1.connectedThread.write("E");
+                    if(Bluetooth_2.connectedThread!=null) Bluetooth_2.connectedThread.write("E");
                 }else {
-                    if(Bluetooth_1.connectedThread!= null) Bluetooth_1.connectedThread.write("Q");
+                    if(Bluetooth_2.connectedThread!= null) Bluetooth_2.connectedThread.write("Q");
                 }
                 break;
         }

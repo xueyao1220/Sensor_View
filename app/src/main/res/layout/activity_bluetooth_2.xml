@@ -16,9 +16,10 @@
         android:id="@+id/ListView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bConnect"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvPd"
-        />
+        android:layout_below="@+id/tvPd"/>
+
+
+
 
 </RelativeLayout>
